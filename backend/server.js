@@ -15,7 +15,10 @@ const { resolveEndedAuctions } = require('./services/auctionService');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use(cors({
+  origin: 'https://auction-app-git-main-qwertyasa21314-9356s-projects.vercel.app/', // USE YOUR ACTUAL VERCEL URL HERE
+  credentials: true
+}));
 
 connectDB();
 
@@ -27,15 +30,15 @@ app.use('/api/listings', itemRoutes);
 app.get('/api/health-check', async (req, res) => {
   const dbStatus = mongoose.connection.readyState;
   if (dbStatus === 1) {
-    return res.status(200).json({ 
-      status: 'healthy', 
+    return res.status(200).json({
+      status: 'healthy',
       database: 'Connected to MongoDB Cluster',
-      databaseName: mongoose.connection.name 
+      databaseName: mongoose.connection.name
     });
   } else {
-    return res.status(503).json({ 
-      status: 'unhealthy', 
-      database: 'Disconnected from Database' 
+    return res.status(503).json({
+      status: 'unhealthy',
+      database: 'Disconnected from Database'
     });
   }
 });
@@ -49,7 +52,7 @@ wss.on('connection', (ws) => {
   ws.on('message', async (message) => {
     try {
       const parsedData = JSON.parse(message);
-      
+
       if (parsedData.type === 'PLACE_BID') {
         const { listingId, incrementAmount } = parsedData;
         const Listing = require('./models/Listing');
