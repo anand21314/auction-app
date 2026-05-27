@@ -1,0 +1,126 @@
+/* VELOCITY MARKETPLACE // RETAIL DESIGN SYSTEM */
+@import "tailwindcss";
+
+:root {
+  --bg: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f5f9;
+  
+  --primary: #3b82f6; /* Vibrant ocean blue */
+  --primary-hover: #2563eb;
+  --primary-light: rgba(59, 130, 246, 0.08);
+  
+  --success: #10b981; /* Deal emerald green */
+  --success-hover: #059669;
+  --success-light: rgba(16, 185, 129, 0.08);
+  
+  --error: #ef4444;
+  --error-light: rgba(239, 68, 68, 0.08);
+  
+  --border: #e2e8f0;
+  --border-focus: #94a3b8;
+  
+  --text: #475569; /* Slate 600 */
+  --text-h: #0f172a; /* Slate 900 */
+  --text-muted: #94a3b8; /* Slate 400 */
+  
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  font-family: var(--sans);
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Edge-to-Edge Grid Overrides - Force complete browser fitting with no side margins */
+#root {
+  width: 100vw !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+/* Global scrollbars styled in modern slate tracks */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Modern retail components styled globally */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--sans);
+  color: var(--text-h);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+input, select, textarea, button {
+  font-family: var(--sans);
+}
+
+/* High-fidelity soft shadow */
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-shadow:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* Transition utility */
+.smooth-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+/* DYNAMIC DARK THEME OVERRIDES */
+[data-theme="dark"] {
+  --bg: #0f172a; /* Slate 900 */
+  --bg-card: #1e293b; /* Slate 800 */
+  --bg-hover: #334155; /* Slate 700 */
+  
+  --primary: #60a5fa; /* Lighter ocean blue */
+  --primary-hover: #3b82f6;
+  --primary-light: rgba(96, 165, 250, 0.15);
+  
+  --border: #334155;
+  --border-focus: #475569;
+  
+  --text: #94a3b8; /* Slate 400 */
+  --text-h: #f8fafc; /* Slate 50 */
+  --text-muted: #64748b; /* Slate 500 */
+}

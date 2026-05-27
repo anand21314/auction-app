@@ -1,0 +1,425 @@
+/* RETAIL-CENTRIC PRODUCT DETAIL STYLES */
+
+.retail-detail-wrapper {
+  background-color: #f8fafc;
+  color: #475569;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  width: 100vw !important;
+  max-width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* CORE SPLIT SCREEN GRID */
+.detail-split-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.detail-left-pane, .detail-right-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* RETAIL PANEL SHADOW */
+.terminal-panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.panel-header-strip {
+  background-color: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+}
+
+.panel-header-text {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.panel-status-tag {
+  font-size: 10px;
+  font-weight: 800;
+  background-color: #e0f2fe;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.panel-status-tag.closed {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+/* LEFT PANE IMAGE DISPLAY */
+.detail-image-frame {
+  height: 400px;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.detail-image-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* REGISTRY SPECS DESCRIPTION */
+.panel-content-log {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.spec-log-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 8px;
+}
+
+.spec-key {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.spec-value {
+  color: #0f172a;
+}
+
+.spec-value.text-sky {
+  color: #3b82f6;
+}
+
+.spec-log-divider {
+  border-bottom: 1px solid #e2e8f0;
+  margin: 8px 0;
+}
+
+.spec-log-paragraph {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.paragraph-header {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.paragraph-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #334155;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* RIGHT PANE: TIMER MODULE */
+.countdown-timer-module {
+  border-color: #bae6fd;
+}
+
+.time-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.time-badge.active {
+  background-color: #d1fae5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+}
+
+.time-badge.expired {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.countdown-clock-display {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.clock-digit {
+  font-size: 42px;
+  font-weight: 800;
+  color: #3b82f6;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.clock-digit.expired-clock {
+  color: #ef4444;
+}
+
+.clock-micro-label {
+  font-size: 9px;
+  color: #94a3b8;
+  margin-top: 8px;
+  letter-spacing: 0.05em;
+}
+
+/* CURRENT PRICE MODULE */
+.price-value-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.price-large {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.bids-placed-micro {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+/* BIDDING FORM ENTRY MODULE */
+.bid-console-body {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.expired-notice-banner {
+  font-size: 12px;
+  color: #ef4444;
+  line-height: 1.5;
+  border: 1px dashed rgba(239, 68, 68, 0.2);
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: #fef2f2;
+  text-align: center;
+  font-weight: 700;
+}
+
+.terminal-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-prompt-desc {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.input-group-terminal {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 16px;
+  transition: all 0.2s ease;
+}
+
+.input-group-terminal:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.input-prefix {
+  color: #10b981;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.input-terminal-field {
+  background: none;
+  border: none;
+  outline: none !important;
+  color: #0f172a;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+}
+
+.console-response-error {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.console-response-success {
+  color: #047857;
+  background-color: #d1fae5;
+  border: 1px solid #a7f3d0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.guest-login-notice {
+  font-size: 12px;
+  color: #ef4444;
+  line-height: 1.5;
+  border: 1px dashed rgba(239, 68, 68, 0.2);
+  padding: 12px 16px;
+  border-radius: 6px;
+  background-color: #fef2f2;
+  text-align: center;
+}
+
+.btn-terminal-submit {
+  background-color: #3b82f6;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.btn-terminal-submit:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.btn-terminal-submit:disabled {
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border: 1px solid #e2e8f0;
+}
+
+/* TRANSACTION LEDGER */
+.ledger-box-log {
+  padding: 16px;
+  height: 220px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.empty-ledger {
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.ledger-rows-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ledger-log-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 8px;
+}
+
+.ledger-log-row:last-child {
+  border-bottom: none;
+}
+
+.ledger-index {
+  color: #94a3b8;
+  font-weight: bold;
+}
+
+.ledger-bidder {
+  color: #334155;
+  font-weight: 700;
+  flex: 1;
+  margin-left: 12px;
+}
+
+.ledger-time {
+  color: #94a3b8;
+  margin-right: 16px;
+}
+
+.ledger-amount {
+  font-weight: 700;
+}
+
+/* RESPONSIVE LAYOUTS */
+@media (max-width: 1024px) {
+  .detail-split-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px 16px;
+  }
+  .detail-image-frame {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .clock-digit {
+    font-size: 32px;
+  }
+  .price-large {
+    font-size: 28px;
+  }
+  .input-terminal-field {
+    font-size: 14px;
+  }
+}

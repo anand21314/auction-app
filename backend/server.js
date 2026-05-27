@@ -1,0 +1,91 @@
+// CRUCIAL FIX: Load your environmental variables first before any configuration initialization files run!
+require('dotenv').config();
+
+const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const connectDB = require('./config/db');
+const redisClient = require('./config/redis');
+const authRoutes = require('./routes/authRoutes');
+const itemRoutes = require('./routes/itemRoutes');
+const { resolveEndedAuctions } = require('./services/auctionService');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+// Initialize MongoDB Connection via config (Now has secure access to process.env.MONGO_URI)
+connectDB();
+
+// Bind System REST Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/listings', itemRoutes);
+
+// Health Check endpoint to verify MongoDB connectivity parameters directly
+app.get('/api/health-check', async (req, res) => {
+  const dbStatus = mongoose.connection.readyState;
+  if (dbStatus === 1) {
+    return res.status(200).json({ 
+      status: 'healthy', 
+      database: 'Connected to MongoDB Cluster',
+      databaseName: mongoose.connection.name 
+    });
+  } else {
+    return res.status(503).json({ 
+      status: 'unhealthy', 
+      database: 'Disconnected from Database' 
+    });
+  }
+});
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+app.set('wss', wss);
+
+// WebSockets Real-time Stream Logic
+wss.on('connection', (ws) => {
+  ws.on('message', async (message) => {
+    try {
+      const parsedData = JSON.parse(message);
+      
+      if (parsedData.type === 'PLACE_BID') {
+        const { listingId, incrementAmount } = parsedData;
+        const Listing = require('./models/Listing');
+
+        const updatedItem = await Listing.findByIdAndUpdate(
+          listingId,
+          { $inc: { price: incrementAmount, bidsPlaced: 1 } },
+          { new: true }
+        );
+
+        if (updatedItem) {
+          const keys = await redisClient.keys('feed:*');
+          if (keys.length > 0) await redisClient.del(keys);
+
+          const broadcastPayload = JSON.stringify({
+            event: 'BID_UPDATED',
+            id: updatedItem._id,
+            newPrice: updatedItem.price,
+            details: `${updatedItem.bidsPlaced} Bids placed`
+          });
+
+          wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+              client.send(broadcastPayload);
+            }
+          });
+        }
+      }
+    } catch (e) {
+      console.error("Websocket sync processing error: ", e);
+    }
+  });
+});
+
+// Start background resolution service for completed auctions (checks every 15 seconds)
+setInterval(resolveEndedAuctions, 15000);
+
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log(`Server context operational across environment port: ${PORT}`));
