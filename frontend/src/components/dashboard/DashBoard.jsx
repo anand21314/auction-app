@@ -433,4 +433,41 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
                       type="file" 
                       id="db-file-picker" 
                       className="hidden-file-input"
-                      accept="image
+                      accept="image/*"
+                      onChange={handleProfileFileChange}
+                    />
+                    <label htmlFor="db-file-picker" className="btn-db-select-file">
+                      Choose File
+                    </label>
+                    <span className="db-file-name-label">
+                      {profilePicFile ? profilePicFile.name : 'No file chosen'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {profileError && <p className="db-profile-error-msg">{profileError}</p>}
+
+              <div className="db-modal-actions">
+                <button 
+                  type="button" 
+                  onClick={() => setIsEditModalOpen(false)} 
+                  className="btn-modal-cancel"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  disabled={updatingProfile} 
+                  className="btn-modal-submit"
+                >
+                  {updatingProfile ? 'Saving...' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
