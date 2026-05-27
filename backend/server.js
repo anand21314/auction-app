@@ -13,13 +13,22 @@ const itemRoutes = require('./routes/itemRoutes');
 const { resolveEndedAuctions } = require('./services/auctionService');
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+const allowedOrigins = [
+  'https://auction-app-git-main-qwertyasa21314-9356s-projects.vercel.app',
+  'https://auction-app-six-plum.vercel.app'
+];
+
 app.use(cors({
-  origin: 'https://auction-app-git-main-qwertyasa21314-9356s-projects.vercel.app/', // USE YOUR ACTUAL VERCEL URL HERE
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
-
 connectDB();
 
 
