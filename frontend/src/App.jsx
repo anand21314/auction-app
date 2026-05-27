@@ -8,6 +8,8 @@ import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
 
 
+import { API_BASE_URL } from './config/api';
+
 const PrivateRoute = ({ token }) => {
   return token ? <Outlet /> : <Navigate to="/" replace />;
 };
@@ -62,7 +64,7 @@ export default function App() {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/listings/dashboard', {
+        const response = await fetch(`${API_BASE_URL}/api/listings/dashboard`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

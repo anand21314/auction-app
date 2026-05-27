@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Dashboard.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function Dashboard({ user, onLogout, onUserUpdate }) {
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
       try {
         const token = localStorage.getItem('authToken');
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
-        const response = await fetch('http://localhost:5000/api/listings/dashboard', { headers });
+        const response = await fetch(`${API_BASE_URL}/api/listings/dashboard`, { headers });
         
         
         if (response.status === 401 || response.status === 403) {
@@ -144,7 +145,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/profile/update', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/profile/update`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

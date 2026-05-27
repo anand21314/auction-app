@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './SellItem.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function SellItem() {
   const navigate = useNavigate();
@@ -155,7 +156,7 @@ export default function SellItem() {
     uploadPayload.append('image', imageFile);
 
     try {
-      const response = await fetch('http://localhost:5000/api/listings/create', {
+      const response = await fetch(`${API_BASE_URL}/api/listings/create`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

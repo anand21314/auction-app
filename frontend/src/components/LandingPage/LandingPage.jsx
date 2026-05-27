@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
     e.preventDefault();
     
     const endpoint = authMode === 'login' 
-      ? 'http://localhost:5000/api/auth/login' 
-      : 'http://localhost:5000/api/auth/signup';
+      ? `${API_BASE_URL}/api/auth/login` 
+      : `${API_BASE_URL}/api/auth/signup`;
     
     try {
       const response = await fetch(endpoint, {

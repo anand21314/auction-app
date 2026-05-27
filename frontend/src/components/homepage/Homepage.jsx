@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Homepage.css';
+import { API_BASE_URL, WS_BASE_URL } from '../../config/api';
 
 export default function Homepage({ user }) {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export default function Homepage({ user }) {
       }
       try {
         const response = await fetch(
-          `http://localhost:5000/api/listings/feed?search=${searchQuery}&category=${selectedCategory}&type=${activeFilter}&sort=${sortBy}`
+          `${API_BASE_URL}/api/listings/feed?search=${searchQuery}&category=${selectedCategory}&type=${activeFilter}&sort=${sortBy}`
         );
         const data = await response.json();
         
@@ -66,8 +67,7 @@ export default function Homepage({ user }) {
 
   
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.hostname}:5000`;
+    const wsUrl = WS_BASE_URL;
     const ws = new WebSocket(wsUrl);
 
     ws.onmessage = (event) => {

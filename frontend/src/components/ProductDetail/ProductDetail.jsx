@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import './ProductDetail.css';
+import { API_BASE_URL, WS_BASE_URL } from '../../config/api';
 
 export default function ProductDetail({ user }) {
   const { id } = useParams();
@@ -73,7 +74,7 @@ export default function ProductDetail({ user }) {
         setLoading(true);
       }
       try {
-        const response = await fetch(`http://localhost:5000/api/listings/${id}`);
+        const response = await fetch(`${API_BASE_URL}/api/listings/${id}`);
         const data = await response.json();
         
         if (response.ok) {
@@ -91,8 +92,7 @@ export default function ProductDetail({ user }) {
 
   
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.hostname}:5000`;
+    const wsUrl = WS_BASE_URL;
     const ws = new WebSocket(wsUrl);
     socketRef.current = ws;
 
@@ -180,7 +180,7 @@ export default function ProductDetail({ user }) {
 
     try {
       const token = localStorage.getItem('authToken');
-      const response = await fetch('http://localhost:5000/api/listings/bid', {
+      const response = await fetch(`${API_BASE_URL}/api/listings/bid`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ export default function ProductDetail({ user }) {
         setBidSuccess("Bid successfully registered!");
         
         
-        const updatedResponse = await fetch(`http://localhost:5000/api/listings/${id}`);
+        const updatedResponse = await fetch(`${API_BASE_URL}/api/listings/${id}`);
         const updatedData = await updatedResponse.json();
         if (updatedResponse.ok) {
           setListing(updatedData);
