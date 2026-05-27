@@ -55,7 +55,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
     return !saved;
   });
 
-  // Profile Edit modal states
+  
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [phoneInput, setPhoneInput] = useState(user?.phone || '');
   const [profilePicFile, setProfilePicFile] = useState(null);
@@ -80,7 +80,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
         const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
         const response = await fetch('http://localhost:5000/api/listings/dashboard', { headers });
         
-        // Handle token expiration/invalidity instantly
+        
         if (response.status === 401 || response.status === 403) {
           if (onLogout) onLogout();
           return;
@@ -111,7 +111,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
       }
     };
     fetchDashboardMetrics();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const formatCurrency = (value) => {
@@ -158,7 +158,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
         if (onUserUpdate) {
           onUserUpdate(data.user);
         }
-        // Apply instantly! No delays or artificial timers.
+        
         setIsEditModalOpen(false);
         setProfilePicFile(null);
         setProfilePicPreview('');
@@ -179,7 +179,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
       
       <main className="db-content-container">
         
-        {/* PREMIUM USER PROFILE HEADER CARD */}
+        
         <section className="db-profile-hero-card card-shadow">
           <div className="db-avatar-large">
             {user?.profilePicture ? (
@@ -203,7 +203,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
           </button>
         </section>
 
-        {/* TELEMETRY AGGREGATE SYSTEM METRICS CARDS */}
+        
         <section className="db-metrics-grid">
           <div className="db-metric-card card-shadow">
             <div className="metric-icon-box blue-theme">
@@ -246,7 +246,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
           </div>
         </section>
 
-        {/* TAB VIEW SECTOR SELECTOR */}
+        
         <div className="db-tabs-strip">
           <button 
             className={`db-tab-btn ${activeTab === 'listings' ? 'active' : ''}`}
@@ -268,10 +268,10 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
           </button>
         </div>
 
-        {/* TAB WORKSPACE CONTENT PANELS */}
+        
         <div className="db-workspace-panel card-shadow">
           
-          {/* TAB 1: MY ACTIVE LISTINGS */}
+          
           {activeTab === 'listings' && (
             <div className="workspace-tab-content">
               <div className="tab-header-row">
@@ -314,7 +314,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
             </div>
           )}
 
-          {/* TAB 2: BIDS AND OFFERS */}
+          
           {activeTab === 'bidding' && (
             <div className="workspace-tab-content">
               <div className="tab-header-row">
@@ -357,7 +357,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
             </div>
           )}
 
-          {/* TAB 3: WON TRANSACTION RECEIPTS */}
+          
           {activeTab === 'won' && (
             <div className="workspace-tab-content">
               <div className="tab-header-row">
@@ -396,7 +396,7 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
         </div>
       </main>
 
-      {/* PERSONAL DETAILS MODAL */}
+      
       {isEditModalOpen && (
         <div className="db-modal-overlay" onClick={() => setIsEditModalOpen(false)}>
           <div className="db-modal-window" onClick={(e) => e.stopPropagation()}>
@@ -433,42 +433,4 @@ export default function Dashboard({ user, onLogout, onUserUpdate }) {
                       type="file" 
                       id="db-file-picker" 
                       className="hidden-file-input"
-                      accept="image/*"
-                      onChange={handleProfileFileChange}
-                    />
-                    <label htmlFor="db-file-picker" className="btn-db-picker-select">
-                      Choose Photo
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              {profileError && <div className="console-response-error">{profileError}</div>}
-              {profileSuccess && <div className="console-response-success">{profileSuccess}</div>}
-
-              <div className="db-modal-submit-row">
-                {updatingProfile ? (
-                  <span className="updating-notice animate-pulse">Syncing profile updates...</span>
-                ) : (
-                  <>
-                    <button 
-                      type="button" 
-                      className="btn-db-modal-cancel" 
-                      onClick={() => setIsEditModalOpen(false)}
-                    >
-                      Cancel
-                    </button>
-                    <button type="submit" className="btn-db-modal-submit">
-                      Save Changes
-                    </button>
-                  </>
-                )}
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-    </div>
-  );
-}
+                      accept="image

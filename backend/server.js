@@ -1,4 +1,4 @@
-// CRUCIAL FIX: Load your environmental variables first before any configuration initialization files run!
+
 require('dotenv').config();
 
 const express = require('express');
@@ -16,14 +16,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize MongoDB Connection via config (Now has secure access to process.env.MONGO_URI)
+
 connectDB();
 
-// Bind System REST Routes
+
 app.use('/api/auth', authRoutes);
 app.use('/api/listings', itemRoutes);
 
-// Health Check endpoint to verify MongoDB connectivity parameters directly
+
 app.get('/api/health-check', async (req, res) => {
   const dbStatus = mongoose.connection.readyState;
   if (dbStatus === 1) {
@@ -44,7 +44,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 app.set('wss', wss);
 
-// WebSockets Real-time Stream Logic
+
 wss.on('connection', (ws) => {
   ws.on('message', async (message) => {
     try {
@@ -84,7 +84,7 @@ wss.on('connection', (ws) => {
   });
 });
 
-// Start background resolution service for completed auctions (checks every 15 seconds)
+
 setInterval(resolveEndedAuctions, 15000);
 
 const PORT = process.env.PORT || 5000;

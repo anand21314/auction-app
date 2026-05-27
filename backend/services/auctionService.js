@@ -2,10 +2,7 @@ const Listing = require('../models/Listing');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 
-/**
- * Periodically checks for expired auctions, sets them to 'closed',
- * resolves the highest bidder, and sends details exchange emails.
- */
+
 let isRunning = false;
 
 const resolveEndedAuctions = async () => {
@@ -29,11 +26,11 @@ const resolveEndedAuctions = async () => {
     for (const listing of expiredActiveListings) {
       console.log(`⚙️ Resolving expired auction: "${listing.title}" (ID: ${listing._id})`);
 
-      // Mark closed and emailSent immediately to prevent race conditions or duplicate processing
+      
       listing.status = 'closed';
       listing.emailSent = true;
 
-      // Extract highest bid
+      
       const sortedBids = [...listing.bids].sort((a, b) => b.amount - a.amount);
       const winningBid = sortedBids[0];
 
@@ -41,7 +38,7 @@ const resolveEndedAuctions = async () => {
         const winnerId = winningBid.bidder;
         listing.winner = winnerId;
 
-        // Fetch user profiles for contact details
+        
         const seller = await User.findById(listing.seller);
         const winner = await User.findById(winnerId);
 
@@ -52,7 +49,7 @@ const resolveEndedAuctions = async () => {
           const sellerPhone = seller.phone || 'Not Provided';
           const winnerPhone = winner.phone || 'Not Provided';
 
-          // Email Content for Winner
+          
           const winnerEmailContent = `
             Dear @${winner.username},
 
@@ -70,7 +67,7 @@ const resolveEndedAuctions = async () => {
             Thank you for bidding on Velocity Marketplace!
           `.trim();
 
-          // Email Content for Seller
+          
           const sellerEmailContent = `
             Dear @${seller.username},
 
@@ -88,7 +85,7 @@ const resolveEndedAuctions = async () => {
             Thank you for selling on Velocity Marketplace!
           `.trim();
 
-          // Elegantly mock log email contents to the terminal in all conditions
+          
           console.log("\n======================================================================");
           console.log(`📧 SYSTEM DISPATCH: TRANSACTION COMPLETED INVOICE`);
           console.log(`📍 TARGET RECIPIENTS: [Winner: ${winner.email}] & [Seller: ${seller.email}]`);
@@ -100,7 +97,7 @@ const resolveEndedAuctions = async () => {
           console.log(sellerEmailContent);
           console.log("======================================================================\n");
 
-          // Dispatch real emails if SMTP environmental keys are provided in .env
+          
           if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
             try {
               const transporter = nodemailer.createTransport({

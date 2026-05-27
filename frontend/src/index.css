@@ -1,4 +1,4 @@
-/* VELOCITY MARKETPLACE // RETAIL DESIGN SYSTEM */
+
 @import "tailwindcss";
 
 :root {
@@ -6,11 +6,11 @@
   --bg-card: #ffffff;
   --bg-hover: #f1f5f9;
   
-  --primary: #3b82f6; /* Vibrant ocean blue */
+  --primary: #3b82f6; 
   --primary-hover: #2563eb;
   --primary-light: rgba(59, 130, 246, 0.08);
   
-  --success: #10b981; /* Deal emerald green */
+  --success: #10b981; 
   --success-hover: #059669;
   --success-light: rgba(16, 185, 129, 0.08);
   
@@ -20,9 +20,9 @@
   --border: #e2e8f0;
   --border-focus: #94a3b8;
   
-  --text: #475569; /* Slate 600 */
-  --text-h: #0f172a; /* Slate 900 */
-  --text-muted: #94a3b8; /* Slate 400 */
+  --text: #475569; 
+  --text-h: #0f172a; 
+  --text-muted: #94a3b8; 
   
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   
@@ -43,7 +43,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Edge-to-Edge Grid Overrides - Force complete browser fitting with no side margins */
+
 #root {
   width: 100vw !important;
   max-width: 100% !important;
@@ -58,7 +58,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Global scrollbars styled in modern slate tracks */
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -74,7 +74,7 @@ body {
   background: #94a3b8;
 }
 
-/* Modern retail components styled globally */
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--sans);
   color: var(--text-h);
@@ -92,7 +92,7 @@ input, select, textarea, button {
   font-family: var(--sans);
 }
 
-/* High-fidelity soft shadow */
+
 .card-shadow {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
@@ -102,25 +102,25 @@ input, select, textarea, button {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
 }
 
-/* Transition utility */
+
 .smooth-transition {
   transition: all 0.2s ease-in-out;
 }
 
-/* DYNAMIC DARK THEME OVERRIDES */
+
 [data-theme="dark"] {
-  --bg: #0f172a; /* Slate 900 */
-  --bg-card: #1e293b; /* Slate 800 */
-  --bg-hover: #334155; /* Slate 700 */
+  --bg: #0f172a; 
+  --bg-card: #1e293b; 
+  --bg-hover: #334155; 
   
-  --primary: #60a5fa; /* Lighter ocean blue */
+  --primary: #60a5fa; 
   --primary-hover: #3b82f6;
   --primary-light: rgba(96, 165, 250, 0.15);
   
   --border: #334155;
   --border-focus: #475569;
   
-  --text: #94a3b8; /* Slate 400 */
-  --text-h: #f8fafc; /* Slate 50 */
-  --text-muted: #64748b; /* Slate 500 */
+  --text: #94a3b8; 
+  --text-h: #f8fafc; 
+  --text-muted: #64748b; 
 }

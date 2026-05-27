@@ -1,4 +1,4 @@
-/* PERSISTENT GLOBAL NAVBAR STYLES */
+
 
 .global-navbar {
   background-color: var(--bg-card);
@@ -41,7 +41,7 @@
   color: var(--text-h);
 }
 
-/* UTILITY BROWSE BARS */
+
 .navbar-mid-links {
   flex: 1;
   display: flex;
@@ -67,7 +67,7 @@
   background-color: rgba(59, 130, 246, 0.04);
 }
 
-/* NAVIGATION RIGHT ACTIONS */
+
 .navbar-right-ctas {
   display: flex;
   align-items: center;
@@ -75,7 +75,7 @@
   flex-shrink: 0;
 }
 
-/* PROMINENT 'SELL ITEM' CTA */
+
 .btn-navbar-sell {
   background-color: #3b82f6;
   color: #ffffff;
@@ -101,7 +101,7 @@
   font-size: 16px;
 }
 
-/* PROFILE DROPDOWNS */
+
 .navbar-profile-menu {
   display: flex;
   align-items: center;
@@ -162,7 +162,7 @@
   color: #ef4444;
 }
 
-/* RESPONSIVE LAYOUTS */
+
 @media (max-width: 768px) {
   .navbar-content-bounded {
     flex-direction: column;
@@ -182,7 +182,7 @@
   }
 }
 
-/* THEME TOGGLE ICON */
+
 .btn-navbar-theme {
   background: none;
   border: none;

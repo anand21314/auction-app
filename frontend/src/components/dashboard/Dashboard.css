@@ -1,4 +1,4 @@
-/* RETAIL-CENTRIC DASHBOARD STYLES */
+
 
 .retail-dashboard-wrapper {
   background-color: #f8fafc;
@@ -14,7 +14,7 @@
   padding: 0 !important;
 }
 
-/* TOP NAVBAR */
+
 .db-navbar {
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
@@ -98,7 +98,7 @@
   color: #ef4444;
 }
 
-/* CORE HUB CONTAINER */
+
 .db-content-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -110,7 +110,7 @@
   box-sizing: border-box;
 }
 
-/* PREMIUM PROFILE HERO */
+
 .db-profile-hero-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
@@ -164,7 +164,7 @@
   color: #64748b;
 }
 
-/* TELEMETRY METRIC CARDS */
+
 .db-metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -229,7 +229,7 @@
   color: #64748b;
 }
 
-/* TAB BAR */
+
 .db-tabs-strip {
   display: flex;
   gap: 12px;
@@ -270,7 +270,7 @@
   border-radius: 9999px;
 }
 
-/* WORKSPACE TAB WINDOWS */
+
 .db-workspace-panel {
   background-color: var(--bg-card);
   border: 1px solid var(--border);
@@ -350,7 +350,7 @@
   max-width: 320px;
 }
 
-/* DENSE LISTINGS CARD GRID */
+
 .db-listings-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -459,7 +459,7 @@
   color: #3b82f6;
 }
 
-/* OUTPOST ROW LIST */
+
 .db-rows-stack {
   display: flex;
   flex-direction: column;
@@ -562,7 +562,7 @@
   background-color: rgba(59, 130, 246, 0.02);
 }
 
-/* WON ITEMS TRANSACTION */
+
 .db-row-item.won-transaction {
   border-left: 4px solid #10b981;
   padding-left: 16px;
@@ -602,7 +602,7 @@
   color: #0f172a;
 }
 
-/* RESPONSIVE LAYOUTS */
+
 @media (max-width: 1024px) {
   .db-metrics-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -662,7 +662,7 @@
   }
 }
 
-/* PROFILE PICTURE & DETAILS UPGRADE STYLES */
+
 .db-avatar-large-img {
   width: 100%;
   height: 100%;
@@ -697,7 +697,7 @@
   font-size: 16px;
 }
 
-/* MODAL OVERLAY STYLES */
+
 .db-modal-overlay {
   position: fixed;
   top: 0;
@@ -797,7 +797,7 @@
   outline: none;
 }
 
-/* AVATAR DRAG DROP FILE SELECTOR */
+
 .db-modal-avatar-picker {
   display: flex;
   align-items: center;

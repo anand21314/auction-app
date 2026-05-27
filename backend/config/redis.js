@@ -18,11 +18,11 @@ try {
   redisClient = new Redis(redisUrl, {
     maxRetriesPerRequest: 1,
     connectTimeout: 2000,
-    enableOfflineQueue: false, // Instant fallback, do not queue offline commands
+    enableOfflineQueue: false, 
     retryStrategy(times) {
       if (times > 1) {
         console.warn("⚠️ REDIS: Connection timed out. Operating in DEGRADED MODE (Mock client active).");
-        return null; // Stop retrying
+        return null; 
       }
       return 500;
     }
@@ -34,14 +34,14 @@ try {
   });
 
   redisClient.on('error', (err) => {
-    // Suppress logging of error to avoid clutter, set connected to false
+    
     isConnected = false;
   });
 } catch (error) {
   console.warn("⚠️ REDIS: Exception during driver initialization. Fallback enabled.");
 }
 
-// Export a proxy/wrapper that dynamically falls back to mock if not connected
+
 const safeRedis = {
   get: async (key) => {
     if (!isConnected) return null;

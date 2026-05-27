@@ -65,7 +65,7 @@ export default function ProductDetail({ user }) {
   const [isExpired, setIsExpired] = useState(false);
   const socketRef = useRef(null);
 
-  // 1. Fetch item details
+  
   useEffect(() => {
     const fetchListing = async () => {
       const hasCache = !!listing;
@@ -89,7 +89,7 @@ export default function ProductDetail({ user }) {
     fetchListing();
   }, [id]);
 
-  // 2. Real-time Native WebSocket Handler
+  
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.hostname}:5000`;
@@ -125,7 +125,7 @@ export default function ProductDetail({ user }) {
     };
   }, [id]);
 
-  // 3. Countdown Ticker
+  
   useEffect(() => {
     if (!listing || !listing.endTime) return;
 
@@ -197,7 +197,7 @@ export default function ProductDetail({ user }) {
       if (response.ok && data.success) {
         setBidSuccess("Bid successfully registered!");
         
-        // Fetch updated details
+        
         const updatedResponse = await fetch(`http://localhost:5000/api/listings/${id}`);
         const updatedData = await updatedResponse.json();
         if (updatedResponse.ok) {
@@ -241,10 +241,10 @@ export default function ProductDetail({ user }) {
   return (
     <div className="retail-detail-wrapper">
       
-      {/* CORE SPLIT SCREEN GRID */}
+      
       <main className="detail-split-grid">
         
-        {/* LEFT COLUMN: IMAGE AND TECHNICAL INFOS */}
+        
         <section className="detail-left-pane">
           <div className="terminal-panel display-media-module card-shadow">
             <div className="panel-header-strip">
@@ -288,10 +288,10 @@ export default function ProductDetail({ user }) {
           </div>
         </section>
 
-        {/* RIGHT COLUMN: TIMERS, PRICES, AND LEDGERS */}
+        
         <section className="detail-right-pane">
           
-          {/* AUCTION TIMEWINDOW METRIC */}
+          
           <div className="terminal-panel countdown-timer-module card-shadow">
             <div className="panel-header-strip">
               <span className="panel-header-text">Time Remaining</span>
@@ -307,7 +307,7 @@ export default function ProductDetail({ user }) {
             </div>
           </div>
 
-          {/* ACTIVE HIGH PRICE */}
+          
           <div className="terminal-panel current-price-module card-shadow">
             <div className="panel-header-strip">
               <span className="panel-header-text">
@@ -320,7 +320,7 @@ export default function ProductDetail({ user }) {
             </div>
           </div>
 
-          {/* BID OR PURCHASE FORM */}
+          
           {listing.type === 'auction' && (
             <div className="terminal-panel bid-form-module card-shadow">
               <div className="panel-header-strip">
@@ -372,7 +372,7 @@ export default function ProductDetail({ user }) {
             </div>
           )}
 
-          {/* ACTIVE BIDDER HISTORIES LEDGER */}
+          
           <div className="terminal-panel bids-ledger-module card-shadow">
             <div className="panel-header-strip">
               <span className="panel-header-text">Transaction Ledger Log</span>

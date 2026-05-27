@@ -1,4 +1,4 @@
-/* RETAIL-CENTRIC LANDING PAGE STYLES */
+
 
 .retail-landing-wrapper {
   background-color: #f8fafc;
@@ -14,7 +14,7 @@
   padding: 0 !important;
 }
 
-/* TOP NAVIGATION */
+
 .landing-navbar {
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
@@ -86,7 +86,7 @@
   box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.2);
 }
 
-/* HERO GRID SECTION */
+
 .landing-hero-section {
   flex: 1;
   width: 100%;
@@ -179,7 +179,7 @@
   background-color: #f8fafc;
 }
 
-/* HERO PREVIEW CARD */
+
 .hero-preview-card-pane {
   display: flex;
   justify-content: center;
@@ -269,7 +269,7 @@
   font-size: 18px;
 }
 
-/* EXPLORE TRUST STRIP */
+
 .explore-trust-strip {
   background-color: #ffffff;
   border-top: 1px solid #e2e8f0;
@@ -317,7 +317,7 @@
   color: #64748b;
 }
 
-/* RETAIL FOOTER */
+
 .landing-footer {
   background-color: #0f172a;
   color: #94a3b8;
@@ -364,7 +364,7 @@
   color: #ffffff;
 }
 
-/* POP-UP MODERN AUTH MODAL */
+
 .auth-modal-overlay {
   position: fixed;
   top: 0;
@@ -493,7 +493,7 @@
   text-decoration: underline;
 }
 
-/* RESPONSIVE LAYOUTS */
+
 @media (max-width: 1024px) {
   .hero-grid-container {
     grid-template-columns: 1fr;
@@ -528,7 +528,7 @@
   }
 }
 
-/* GUEST LANDING THEME SWITCHER */
+
 .btn-landing-theme {
   background: none;
   border: none;

@@ -1,4 +1,4 @@
-/* RETAIL-CENTRIC NEW LISTING WIZARD STYLES */
+
 
 .terminal-sell-wrapper {
   background-color: #f8fafc;
@@ -14,7 +14,7 @@
   padding: 0 !important;
 }
 
-/* CORE CONTAINER */
+
 .sell-content-container {
   flex: 1;
   padding: 32px 24px;
@@ -39,7 +39,7 @@
   box-sizing: border-box;
 }
 
-/* WIZARD GRID LAYOUT */
+
 .sell-form-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -65,14 +65,14 @@
   height: 100%;
 }
 
-/* DUAL FIELD ROW */
+
 .form-row-double {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* INPUT COMPONENT STYLING */
+
 .input-field-wrapper {
   display: flex;
   flex-direction: column;
@@ -108,7 +108,7 @@
   outline: none !important;
 }
 
-/* PRICE PREFIXED GROUP */
+
 .sell-price-group {
   position: relative;
   display: flex;
@@ -129,7 +129,7 @@
   padding-left: 28px;
 }
 
-/* FILE UPLOAD ZONE */
+
 .sell-upload-zone {
   flex: 1;
   background-color: #ffffff;
@@ -193,7 +193,7 @@
   line-height: 1.5;
 }
 
-/* IMAGE PREVIEW FRAMEWORK */
+
 .preview-terminal-window {
   width: 100%;
   height: 100%;
@@ -257,7 +257,7 @@
   text-align: center;
 }
 
-/* ACTIONS BAR */
+
 .sell-actions-bar {
   display: flex;
   justify-content: flex-end;
@@ -294,7 +294,7 @@
   width: 100%;
 }
 
-/* RESPONSIVE LAYOUTS */
+
 @media (max-width: 1024px) {
   .sell-form-grid {
     grid-template-columns: 1fr;
@@ -315,7 +315,7 @@
   }
 }
 
-/* GEOLOCATION AUTO-DETECT & AUTOCOMPLETE STYLES */
+
 .relative-wrapper {
   position: relative;
 }

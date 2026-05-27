@@ -4,13 +4,13 @@ import './Homepage.css';
 
 export default function Homepage({ user }) {
   const navigate = useNavigate();
-  // Search & Filters states
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [activeFilter, setActiveFilter] = useState('All Items');
   const [sortBy, setSortBy] = useState('Ending Soonest');
   
-  // Real-time listings
+  
   const [listings, setListings] = useState(() => {
     const saved = localStorage.getItem('hpFeedListings');
     try {
@@ -29,10 +29,10 @@ export default function Homepage({ user }) {
     return !saved;
   });
 
-  // 1. Fetch live content from MongoDB
+  
   useEffect(() => {
     const fetchMarketplaceData = async () => {
-      // Only set loading to true if we do not have cached listings to prevent blinking
+      
       if (!localStorage.getItem('hpFeedListings') || searchQuery || selectedCategory !== 'All Categories' || activeFilter !== 'All Items') {
         setLoading(true);
       }
@@ -44,7 +44,7 @@ export default function Homepage({ user }) {
         
         if (Array.isArray(data)) {
           setListings(data);
-          // Only cache default feed list to keep the cache clean and instant
+          
           if (!searchQuery && selectedCategory === 'All Categories' && activeFilter === 'All Items') {
             localStorage.setItem('hpFeedListings', JSON.stringify(data));
           }
@@ -64,7 +64,7 @@ export default function Homepage({ user }) {
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery, selectedCategory, activeFilter, sortBy, initialLoading]);
 
-  // 2. WebSocket listener to sync bids live
+  
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.hostname}:5000`;
@@ -102,7 +102,7 @@ export default function Homepage({ user }) {
   return (
     <div className="retail-homepage-wrapper">
       
-      {/* RETAIL SEARCH BANNER ROW */}
+      
       <section className="homepage-search-banner-row">
         <div className="hp-search-container-bounded">
           <div className="hp-search-input-group card-shadow">
@@ -131,7 +131,7 @@ export default function Homepage({ user }) {
         </div>
       </section>
 
-      {/* FILTER OPTIONS STRIP ROW */}
+      
       <div className="hp-filter-strip-row">
         <div className="hp-filter-wrapper-bounded">
           <div className="hp-filter-badge-stack">
@@ -161,7 +161,7 @@ export default function Homepage({ user }) {
         </div>
       </div>
 
-      {/* CATEGORIES TRACK */}
+      
       <section className="hp-categories-carousel-section">
         <div className="hp-carousel-track-container">
           {[
@@ -184,7 +184,7 @@ export default function Homepage({ user }) {
         </div>
       </section>
 
-      {/* ACTIVE PRODUCT DENSE CANVASES */}
+      
       <main className="hp-marketplace-grid-main">
         <div className="hp-grid-header-row">
           <h2 className="hp-grid-main-heading">Recommendations Near You</h2>
@@ -209,7 +209,7 @@ export default function Homepage({ user }) {
             {listings.map((product) => (
               <div key={product._id} className="hp-product-classified-card card-shadow">
                 
-                {/* CARD MEDIA HEADER */}
+                
                 <div className="hp-card-image-box">
                   <img className="hp-card-img" alt={product.title} src={product.image}/>
                   <span className={`hp-card-absolute-badge ${product.type}`}>
@@ -224,7 +224,7 @@ export default function Homepage({ user }) {
                   )}
                 </div>
 
-                {/* CARD META DETAILS */}
+                
                 <div className="hp-card-details-pad">
                   <div className="hp-card-header-meta">
                     <h3 className="hp-card-product-title">{product.title}</h3>

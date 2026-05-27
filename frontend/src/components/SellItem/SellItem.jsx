@@ -19,7 +19,7 @@ export default function SellItem() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Geocoding & Autocomplete states
+  
   const [geoLoading, setGeoLoading] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -146,12 +146,12 @@ export default function SellItem() {
     const token = localStorage.getItem('authToken');
     const uploadPayload = new FormData();
     
-    // Append standard fields
+    
     Object.keys(formData).forEach(key => {
       uploadPayload.append(key, formData[key]);
     });
     
-    // Append file
+    
     uploadPayload.append('image', imageFile);
 
     try {
@@ -168,7 +168,7 @@ export default function SellItem() {
       if (response.ok && data.success) {
         setSuccess("Success! Listing deployed to Atlas clusters.");
         setTimeout(() => {
-          navigate('/profile'); // Redirect directly to /profile (User Dashboard)
+          navigate('/profile'); 
         }, 1200);
       } else {
         setError(data.error || "Failed to create listing.");
@@ -194,7 +194,7 @@ export default function SellItem() {
           <form onSubmit={handleFormSubmit} className="sell-interactive-form">
             <div className="sell-form-grid">
               
-              {/* LEFT COLUMN: FIELDS */}
+              
               <div className="form-fields-column">
                 <div className="input-field-wrapper">
                   <label className="field-label">Listing Title</label>
@@ -326,7 +326,7 @@ export default function SellItem() {
                 </div>
               </div>
 
-              {/* RIGHT COLUMN: DRIVE IMAGING ATTACHMENTS */}
+              
               <div className="form-imaging-column">
                 <div className="input-field-wrapper flex-column-fill">
                   <label className="field-label">Listing Image Attachment</label>
@@ -373,11 +373,11 @@ export default function SellItem() {
 
             </div>
 
-            {/* RESPONSE PANELS */}
+            
             {error && <div className="console-response-error mt-4">{error}</div>}
             {success && <div className="console-response-success mt-4">{success}</div>}
 
-            {/* ACTIONS BAR */}
+            
             <div className="sell-actions-bar">
               {uploading ? (
                 <div className="console-uploading-bar animate-pulse">

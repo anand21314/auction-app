@@ -3,15 +3,15 @@ const User = require('../models/User');
 const redisClient = require('../config/redis');
 const WebSocket = require('ws');
 
-// 1. GET Marketplace Feed (with Caching and Multi-layer Filters)
+
 exports.getMarketplaceFeed = async (req, res) => {
   try {
     const { search, category, type, sort } = req.query;
 
-    // Build Cache Key based on query params
+    
     const cacheKey = `feed:${search || ''}:${category || ''}:${type || ''}:${sort || ''}`;
     
-    // Attempt Redis cache hit
+    
     try {
       const cached = await redisClient.get(cacheKey);
       if (cached) {
@@ -22,10 +22,10 @@ exports.getMarketplaceFeed = async (req, res) => {
       console.warn("REDIS Cache retrieval failed, falling back to database query:", cacheErr.message);
     }
 
-    // Build MongoDB Query Filter
+    
     const query = { status: 'active' };
 
-    // Search query matching title or specs
+    
     if (search && search.trim() !== '') {
       query.$or = [
         { title: { $regex: search, $options: 'i' } },
@@ -33,23 +33,23 @@ exports.getMarketplaceFeed = async (req, res) => {
       ];
     }
 
-    // Category filter
+    
     if (category && category !== 'All Categories') {
       query.category = category;
     }
 
-    // Type filter ('All Items', 'Auctions Only', 'Buy It Now')
+    
     if (type === 'Auctions Only') {
       query.type = 'auction';
     } else if (type === 'Buy It Now') {
       query.type = 'direct';
     }
 
-    // Sorting strategies
-    let sortOption = { createdAt: -1 }; // default: newest
+    
+    let sortOption = { createdAt: -1 }; 
     if (sort === 'Ending Soonest') {
       sortOption = { endTime: 1 };
-      query.endTime = { $gt: new Date() }; // show only unexpired
+      query.endTime = { $gt: new Date() }; 
     } else if (sort === 'Price: Low to High') {
       sortOption = { price: 1 };
     } else if (sort === 'Price: High to Low') {
@@ -61,7 +61,7 @@ exports.getMarketplaceFeed = async (req, res) => {
       .sort(sortOption)
       .limit(50);
 
-    // Save to Redis Cache (60s TTL)
+    
     try {
       await redisClient.set(cacheKey, JSON.stringify(listings), 'EX', 60);
       console.log("💾 REDIS: Feed Cache Written successfully");
@@ -76,7 +76,7 @@ exports.getMarketplaceFeed = async (req, res) => {
   }
 };
 
-// 2. GET Listing by ID (Required for direct routing detail page)
+
 exports.getListingById = async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id)
@@ -87,7 +87,7 @@ exports.getListingById = async (req, res) => {
       return res.status(404).json({ error: 'Item not found in current marketplace logs' });
     }
 
-    // Expiry check logic (closes listing if expired but still set to active)
+    
     if (listing.status === 'active' && listing.endTime < new Date()) {
       listing.status = 'closed';
       await listing.save();
@@ -100,30 +100,30 @@ exports.getListingById = async (req, res) => {
   }
 };
 
-// 3. GET User Dashboard (Aggregated Telemetries)
+
 exports.getUserDashboard = async (req, res) => {
   try {
     const userId = req.user.id;
     const userDoc = await User.findById(userId).select('-password');
 
-    // Retrieve Listings created by user
+    
     const myListings = await Listing.find({ seller: userId })
       .populate('seller', 'username')
       .sort({ createdAt: -1 });
 
-    // Retrieve active bids placed by user
+    
     const activeBidsListings = await Listing.find({
       'bids.bidder': userId,
       status: 'active'
     }).populate('bids.bidder', 'username');
 
-    // Build Bidding History
+    
     const biddingHistory = activeBidsListings.map(listing => {
-      // Sort bids to get highest bid amount
+      
       const sortedBids = [...listing.bids].sort((a, b) => b.amount - a.amount);
       const isHighestBidder = sortedBids.length > 0 && sortedBids[0].bidder._id.toString() === userId.toString();
       
-      // Get the highest bid the user placed on this item
+      
       const userBids = listing.bids.filter(b => b.bidder._id.toString() === userId.toString());
       const maxUserBid = userBids.length > 0 ? Math.max(...userBids.map(b => b.amount)) : listing.price;
 
@@ -140,7 +140,7 @@ exports.getUserDashboard = async (req, res) => {
       };
     });
 
-    // Retrieve items won by user (Status closed and highest bid was placed by user)
+    
     const closedAuctions = await Listing.find({
       status: 'closed',
       'bids.bidder': userId
@@ -157,7 +157,7 @@ exports.getUserDashboard = async (req, res) => {
       }
     }
 
-    // Telemetry aggregations
+    
     const totalListed = myListings.length;
     const activeBids = biddingHistory.length;
     const wonCount = wonItems.length;
@@ -187,7 +187,7 @@ exports.getUserDashboard = async (req, res) => {
   }
 };
 
-// 4. POST Place Bid (REST Validation + WS Broadcasting Synchronization)
+
 exports.placeBid = async (req, res) => {
   try {
     const { listingId, amount } = req.body;
@@ -202,12 +202,12 @@ exports.placeBid = async (req, res) => {
       return res.status(404).json({ error: "Target auction system index offline" });
     }
 
-    // Block seller from bidding on their own item
+    
     if (listing.seller.toString() === userId.toString()) {
       return res.status(400).json({ error: "Sellers cannot participate in their own auctions." });
     }
 
-    // Validate Status & Expiry
+    
     if (listing.status === 'closed' || listing.endTime < new Date()) {
       if (listing.status === 'active') {
         listing.status = 'closed';
@@ -216,18 +216,18 @@ exports.placeBid = async (req, res) => {
       return res.status(400).json({ error: "Auction terminal closed. Bids rejected." });
     }
 
-    // Validate bid price higher than current price
+    
     if (amount <= listing.price) {
       return res.status(400).json({ error: `Bid must be higher than current price (current: ₹${listing.price})` });
     }
 
-    // Push new bid context
+    
     listing.bids.push({ bidder: userId, amount: Number(amount) });
     listing.price = Number(amount);
     listing.bidsPlaced += 1;
     await listing.save();
 
-    // Clear feed caching inside Redis database to force immediate feed refreshes
+    
     try {
       const keys = await redisClient.keys('feed:*');
       if (keys.length > 0) {
@@ -238,7 +238,7 @@ exports.placeBid = async (req, res) => {
       console.warn("Failed to clear Redis feed cache post-bid:", cacheErr.message);
     }
 
-    // Real-time synchronization broadcast via global WebSocket server instance attached to Express context
+    
     const wss = req.app.get('wss');
     if (wss) {
       const broadcastPayload = JSON.stringify({
@@ -267,7 +267,7 @@ exports.placeBid = async (req, res) => {
   }
 };
 
-// 5. POST Create Listing (Multiparts Cloudinary Integration)
+
 exports.createListing = async (req, res) => {
   try {
     const { title, price, details, category, type, location, durationHours } = req.body;
@@ -277,11 +277,11 @@ exports.createListing = async (req, res) => {
       return res.status(400).json({ error: "Missing title or base starting price credentials" });
     }
 
-    // Calculate dynamic expiration timestamp (Default: 24h)
+    
     const hours = Number(durationHours) || 24;
     const endTime = new Date(Date.now() + hours * 60 * 60 * 1000);
 
-    // Grab Cloudinary url path parsing (from Multer storage engine)
+    
     const imageUrl = req.file 
       ? req.file.path 
       : 'https://placehold.co/600x400/000000/00ff66?text=Velocity+Item';
@@ -298,7 +298,7 @@ exports.createListing = async (req, res) => {
       seller: userId
     });
 
-    // Clear caching logs
+    
     try {
       const keys = await redisClient.keys('feed:*');
       if (keys.length > 0) {

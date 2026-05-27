@@ -4,18 +4,18 @@ import './LandingPage.css';
 
 export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
   const navigate = useNavigate();
-  // Modal toggling states
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login'); // 'login' or 'signup'
   
-  // Form input states
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); 
+  
+  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
 
-  // Dynamic simulation values (clean retail details)
+  
   const [heroTimer, setHeroTimer] = useState("04:12:44");
   const [bids, setBids] = useState({
     commodore: 12450,
@@ -24,7 +24,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
     camera: 2150,
   });
 
-  // Submit Handler
+  
   const handleAuthSubmit = async (e) => {
     e.preventDefault();
     
@@ -46,12 +46,12 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
       if (response.ok && data.success) {
         localStorage.setItem('authToken', data.token);
         
-        // Pass the real database user profile metrics up to App.jsx to toggle the screen swap
+        
         onAuthSuccess(data.token, data.user);
         closeModal();
-        navigate('/home'); // Redirect directly to the Homepage (Feed)
+        navigate('/home'); 
       } else {
-        // Render custom server constraints alerts ('Identity matching this email already exists')
+        
         alert(data.error || 'Authentication failed. Please verify your entries.');
       }
     } catch (err) {
@@ -99,7 +99,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
   return (
     <div className="retail-landing-wrapper" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
       
-      {/* PROFESSIONAL RETAIL TOP NAVIGATION */}
+      
       <header className="landing-navbar" style={{ background: 'var(--bg-card)', borderBottom: '1px solid var(--border)' }}>
         <div className="landing-navbar-container">
           <div className="navbar-logo-block">
@@ -122,7 +122,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
         </div>
       </header>
 
-      {/* POP-UP MODERN AUTH MODAL */}
+      
       {isAuthModalOpen && (
         <div className="auth-modal-overlay" onClick={closeModal}>
           <div className="auth-modal-window" onClick={(e) => e.stopPropagation()}>
@@ -194,7 +194,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
         </div>
       )}
 
-      {/* HERO SECTION */}
+      
       <main className="landing-hero-section">
         <div className="hero-grid-container">
           
@@ -207,7 +207,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
               Join thousands of verified collectors who buy, sell, and bid on the rarest items from the silicon age. Secure checkout, transparent bidding, and premium shipping.
             </p>
             <div className="hero-action-buttons">
-              {/* PRIMARY 'GET STARTED' CTA */}
+              
               <button onClick={() => openModal('login')} className="btn-hero-cta">
                 Get Started
               </button>
@@ -245,7 +245,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
         </div>
       </main>
 
-      {/* EXPLORE STRETCH CAROUSEL BANNER */}
+      
       <section className="explore-trust-strip">
         <div className="trust-strip-container">
           <div className="trust-node">
@@ -272,7 +272,7 @@ export default function LandingPage({ onAuthSuccess, theme, onToggleTheme }) {
         </div>
       </section>
 
-      {/* RETAIL SPEC FOOTER */}
+      
       <footer className="landing-footer">
         <div className="footer-container">
           <div className="footer-left">

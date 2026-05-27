@@ -7,17 +7,17 @@ import SellItem from './components/SellItem/SellItem';
 import LandingPage from './components/LandingPage/LandingPage';
 import Navbar from './components/Navbar/Navbar';
 
-// Guard: Accessible only if authenticated
+
 const PrivateRoute = ({ token }) => {
   return token ? <Outlet /> : <Navigate to="/" replace />;
 };
 
-// Guard: Accessible only if unauthenticated
+
 const PublicRoute = ({ token }) => {
   return !token ? <Outlet /> : <Navigate to="/home" replace />;
 };
 
-// Shared Layout with persistent top Navbar across private portals
+
 const PrivateLayout = ({ user, onLogout, theme, onToggleTheme }) => {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)', color: 'var(--text)' }}>
@@ -30,7 +30,7 @@ const PrivateLayout = ({ user, onLogout, theme, onToggleTheme }) => {
 };
 
 export default function App() {
-  // Synchronously initialize states from local storage to prevent redirect loops on refresh
+  
   const [token, setToken] = useState(() => localStorage.getItem('authToken'));
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('authUser');
@@ -43,7 +43,7 @@ export default function App() {
   const [loading, setLoading] = useState(() => !localStorage.getItem('authToken'));
   const [theme, setTheme] = useState(() => localStorage.getItem('appTheme') || 'light');
 
-  // Track and apply theme changes to document root
+  
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('appTheme', theme);
@@ -53,7 +53,7 @@ export default function App() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-  // Validate session against backend on mount
+  
   useEffect(() => {
     const verifySession = async () => {
       if (!token) {
@@ -76,7 +76,7 @@ export default function App() {
             localStorage.setItem('authUser', JSON.stringify(data.user));
           }
         } else {
-          // Token invalid/expired: clear session
+          
           handleLogout();
         }
       } catch (err) {
@@ -128,12 +128,12 @@ export default function App() {
     <Router>
       <Routes>
         
-        {/* PUBLIC ACCESS ONLY (Unauthenticated users) */}
+        
         <Route element={<PublicRoute token={token} />}>
           <Route path="/" element={<LandingPage onAuthSuccess={handleAuthSuccess} theme={theme} onToggleTheme={toggleTheme} />} />
         </Route>
 
-        {/* PRIVATE ACCESS ONLY (Authenticated users) */}
+        
         <Route element={<PrivateRoute token={token} />}>
           <Route element={<PrivateLayout user={user} onLogout={handleLogout} theme={theme} onToggleTheme={toggleTheme} />}>
             <Route path="/home" element={<Homepage user={user} onLogout={handleLogout} />} />
@@ -143,7 +143,7 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* Redirect any other path to Landing Page (/) or Home Page (/home) */}
+        
         <Route path="*" element={<Navigate to={token ? "/home" : "/"} replace />} />
 
       </Routes>

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-// Ensure you use "exports.requireAuthentication" to match your router's destructuring import statement precisely
+
 exports.requireAuthentication = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -11,7 +11,7 @@ exports.requireAuthentication = (req, res, next) => {
     const token = authHeader.split(' ')[1];
     const verified = jwt.verify(token, process.env.JWT_SECRET || 'dev_secret_override');
     
-    // Inject the verified payload into the request object parameters for controllers down the pipe
+    
     req.user = verified;
     next();
   } catch (error) {

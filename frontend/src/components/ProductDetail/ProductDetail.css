@@ -1,4 +1,4 @@
-/* RETAIL-CENTRIC PRODUCT DETAIL STYLES */
+
 
 .retail-detail-wrapper {
   background-color: #f8fafc;
@@ -14,7 +14,7 @@
   padding: 0 !important;
 }
 
-/* CORE SPLIT SCREEN GRID */
+
 .detail-split-grid {
   flex: 1;
   display: grid;
@@ -33,7 +33,7 @@
   gap: 24px;
 }
 
-/* RETAIL PANEL SHADOW */
+
 .terminal-panel {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
@@ -75,7 +75,7 @@
   color: #b91c1c;
 }
 
-/* LEFT PANE IMAGE DISPLAY */
+
 .detail-image-frame {
   height: 400px;
   width: 100%;
@@ -94,7 +94,7 @@
   object-fit: contain;
 }
 
-/* REGISTRY SPECS DESCRIPTION */
+
 .panel-content-log {
   padding: 20px;
   display: flex;
@@ -151,7 +151,7 @@
   word-break: break-word;
 }
 
-/* RIGHT PANE: TIMER MODULE */
+
 .countdown-timer-module {
   border-color: #bae6fd;
 }
@@ -203,7 +203,7 @@
   letter-spacing: 0.05em;
 }
 
-/* CURRENT PRICE MODULE */
+
 .price-value-container {
   padding: 24px;
   display: flex;
@@ -224,7 +224,7 @@
   margin-top: 8px;
 }
 
-/* BIDDING FORM ENTRY MODULE */
+
 .bid-console-body {
   padding: 20px;
   box-sizing: border-box;
@@ -344,7 +344,7 @@
   border: 1px solid #e2e8f0;
 }
 
-/* TRANSACTION LEDGER */
+
 .ledger-box-log {
   padding: 16px;
   height: 220px;
@@ -400,7 +400,7 @@
   font-weight: 700;
 }
 
-/* RESPONSIVE LAYOUTS */
+
 @media (max-width: 1024px) {
   .detail-split-grid {
     grid-template-columns: 1fr;

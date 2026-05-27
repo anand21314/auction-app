@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// FIXED: Removed the 'next' parameter and next() callbacks to align with modern Mongoose specs
+
 UserSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
 
@@ -37,7 +37,7 @@ UserSchema.pre('save', async function () {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
   } catch (err) {
-    throw err; // Directly throwing the error tells Mongoose to abort the database save safely
+    throw err; 
   }
 });
 

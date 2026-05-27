@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-// 1. Verified Signup Handler Block
+
 exports.signUpUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -38,7 +38,7 @@ exports.signUpUser = async (req, res) => {
   }
 };
 
-// 2. FIXED: Robust Login Handler Block
+
 exports.logInUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,19 +48,19 @@ exports.logInUser = async (req, res) => {
       return res.status(400).json({ error: 'Please provide both email and password parameters' });
     }
 
-    // Look up user by email context
+    
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) {
       return res.status(404).json({ error: 'No user matches this profile footprint' });
     }
 
-    // Compare plain-text password argument with the encrypted database string
+    
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid authentication credentials' });
     }
 
-    // Issue JWT token tracking parameters
+    
     const token = jwt.sign(
       { id: user._id }, 
       process.env.JWT_SECRET || 'dev_secret_override', 
@@ -81,7 +81,7 @@ exports.logInUser = async (req, res) => {
   }
 };
 
-// 3. POST Update Profile Details (Phone and Profile Picture upload)
+
 exports.updateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
